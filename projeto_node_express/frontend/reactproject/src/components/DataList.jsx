@@ -36,14 +36,21 @@ function DataList(props) {
         setSelectedUserId(null);
     };
 
-    const handleDelete = async (id) => {
-        try {
-            await deleteUserApi(id);
-            await fetchUsers(); // refresh da lista após a deleção
-            props.viewUser(null); // fecha o modal se estiver aberto
-        } catch (error) {
-            console.error('Error deleting user:', error);
-            setError('Failed to delete user');
+    const handleDelete = async (id, event) => {
+        event.stopPropagation();
+        
+        if (window.confirm('Tem certeza que deseja deletar este usuário?')) {
+            try {
+                await deleteUserApi(id);
+                alert('Usuário deletado com sucesso');
+                await fetchUsers();
+                if (props.closeModal) {
+                    props.closeModal();
+                }
+            } catch (error) {
+                console.error('Erro ao deletar usuário:', error);
+                alert('Erro ao deletar usuário');
+            }
         }
     };
 
@@ -67,7 +74,7 @@ function DataList(props) {
                             <div>{user.genero}</div>
                             <div className="button-group">
                                 <button onClick={() => handleView(user)} className="list-button">Ver mais</button>
-                                <button onClick={() => handleDelete(user.id)} className="list-button delete-button">Deletar</button>
+                                <button onClick={(e) => handleDelete(user.id, e)} className="list-button delete-button">Deletar</button>
                                 <button onClick={() => handleUpdate(user)} className="list-button update-button">Atualizar</button>
                             </div>
                         </li>

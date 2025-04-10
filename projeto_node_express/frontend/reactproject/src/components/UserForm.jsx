@@ -21,6 +21,16 @@ function UserForm({ user, isAddMode, onSubmit, onCancel }) {
                 endereco: user.endereco || '',
                 filmeFav: user.filmeFav || ''
             });
+        } else {
+            // Reset form when adding a new user
+            setFormData({
+                nome: '',
+                genero: '',
+                email: '',
+                telefone: '',
+                endereco: '',
+                filmeFav: ''
+            });
         }
     }, [user, isAddMode]);
 
@@ -40,7 +50,7 @@ function UserForm({ user, isAddMode, onSubmit, onCancel }) {
     return (
         <div className="form-container">
             <form onSubmit={handleSubmit} className="user-form">
-                <h2>{isAddMode ? 'Adicionar novo usuário' : 'Atualizar usuário'}</h2>
+                <h2>{isAddMode ? 'Adicionar Novo Usuário' : 'Atualizar Usuário'}</h2>
                 
                 <div className="form-group">
                     <label htmlFor="nome">Nome:</label>
@@ -116,7 +126,7 @@ function UserForm({ user, isAddMode, onSubmit, onCancel }) {
                 
                 <div className="form-buttons">
                     <button type="submit" className="submit-button">
-                        {isAddMode ? 'Adicionar usuário' : 'Atualizar usuário'}
+                        {isAddMode ? 'Adicionar Usuário' : 'Atualizar Usuário'}
                     </button>
                     <button type="button" className="cancel-button" onClick={onCancel}>
                         Cancelar

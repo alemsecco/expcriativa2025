@@ -19,7 +19,7 @@ function App(){
             setIsViewMode(false);
             setSelectedUser(null);
         } else if (typeof user === 'object') {
-            // visualizar um usuário (modal de visualização)
+            // ver um usuário (modal de visualização)
             setSelectedUser(user);
             setIsUpdateMode(false);
             setIsAddMode(false);
@@ -36,17 +36,10 @@ function App(){
         setIsModalOpen(true);
     }
 
+    
     async function deleteUser(id) {
-        if (window.confirm('Tem certeza que deseja deletar este usuário?')) {
-            try {
-                await deleteUserApi(id);
-                alert('Usuário deletado com sucesso');
-                window.location.reload();
-            } catch (error) {
-                console.error('Erro ao deletar usuário:', error);
-                alert('Erro ao deletar usuário');
-            }
-        }
+        // função de exclusão é tratada diretamente no DataList
+        console.log("Deletar usuário através do App:", id);
     }
 
     async function submitUser(userData) {
@@ -75,6 +68,7 @@ function App(){
         setIsAddMode(false);
         setIsUpdateMode(false);
         setIsViewMode(false);
+        setSelectedUser(null);
     }
 
     return(
